@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)https://www.mlab.im.dendai.ac.jp/~ohno/dsa/05.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width">
+<title>2FI データ構造とアルゴリズム</title>
+<!--[if lt IE 9]>
+<script src="../../js/html5shiv.js"></script>
+<script src="../../js/css3-mediaqueries.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="./2FI データ構造とアルゴリズム_5_files/style.css">
+<script type="text/x-mathjax-config;executed=true">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$']]}});</script>
+<script type="text/javascript" async="" src="./2FI データ構造とアルゴリズム_5_files/MathJax.js.ダウンロード"></script>
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.mjx-chtml {display: inline-block; line-height: 0; text-indent: 0; text-align: left; text-transform: none; font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; letter-spacing: normal; word-wrap: normal; word-spacing: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; margin: 0; padding: 1px 0}
+.MJXc-display {display: block; text-align: center; margin: 1em 0; padding: 0}
+.mjx-chtml[tabindex]:focus, body :focus .mjx-chtml[tabindex] {display: inline-table}
+.mjx-full-width {text-align: center; display: table-cell!important; width: 10000em}
+.mjx-math {display: inline-block; border-collapse: separate; border-spacing: 0}
+.mjx-math * {display: inline-block; -webkit-box-sizing: content-box!important; -moz-box-sizing: content-box!important; box-sizing: content-box!important; text-align: left}
+.mjx-numerator {display: block; text-align: center}
+.mjx-denominator {display: block; text-align: center}
+.MJXc-stacked {height: 0; position: relative}
+.MJXc-stacked > * {position: absolute}
+.MJXc-bevelled > * {display: inline-block}
+.mjx-stack {display: inline-block}
+.mjx-op {display: block}
+.mjx-under {display: table-cell}
+.mjx-over {display: block}
+.mjx-over > * {padding-left: 0px!important; padding-right: 0px!important}
+.mjx-under > * {padding-left: 0px!important; padding-right: 0px!important}
+.mjx-stack > .mjx-sup {display: block}
+.mjx-stack > .mjx-sub {display: block}
+.mjx-prestack > .mjx-presup {display: block}
+.mjx-prestack > .mjx-presub {display: block}
+.mjx-delim-h > .mjx-char {display: inline-block}
+.mjx-surd {vertical-align: top}
+.mjx-mphantom * {visibility: hidden}
+.mjx-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 2px 3px; font-style: normal; font-size: 90%}
+.mjx-annotation-xml {line-height: normal}
+.mjx-menclose > svg {fill: none; stroke: currentColor}
+.mjx-mtr {display: table-row}
+.mjx-mlabeledtr {display: table-row}
+.mjx-mtd {display: table-cell; text-align: center}
+.mjx-label {display: table-row}
+.mjx-box {display: inline-block}
+.mjx-block {display: block}
+.mjx-span {display: inline}
+.mjx-char {display: block; white-space: pre}
+.mjx-itable {display: inline-table; width: auto}
+.mjx-row {display: table-row}
+.mjx-cell {display: table-cell}
+.mjx-table {display: table; width: 100%}
+.mjx-line {display: block; height: 0}
+.mjx-strut {width: 0; padding-top: 1em}
+.mjx-vsize {width: 0}
+.MJXc-space1 {margin-left: .167em}
+.MJXc-space2 {margin-left: .222em}
+.MJXc-space3 {margin-left: .278em}
+.mjx-chartest {display: block; visibility: hidden; position: absolute; top: 0; line-height: normal; font-size: 500%}
+.mjx-chartest .mjx-char {display: inline}
+.mjx-chartest .mjx-box {padding-top: 1000px}
+.MJXc-processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MJXc-processed {display: none}
+.mjx-test {display: block; font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow: hidden; height: 1px}
+.mjx-ex-box-test {position: absolute; width: 1px; height: 60ex}
+.mjx-line-box-test {display: table!important}
+.mjx-line-box-test span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+#MathJax_CHTML_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.mjx-chtml .mjx-noError {line-height: 1.2; vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+.MJXc-TeX-unknown-R {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: normal; font-weight: normal}
+.MJXc-TeX-unknown-I {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: italic; font-weight: normal}
+.MJXc-TeX-unknown-B {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: normal; font-weight: bold}
+.MJXc-TeX-unknown-BI {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: italic; font-weight: bold}
+.MJXc-TeX-ams-R {font-family: MJXc-TeX-ams-R,MJXc-TeX-ams-Rw}
+.MJXc-TeX-cal-B {font-family: MJXc-TeX-cal-B,MJXc-TeX-cal-Bx,MJXc-TeX-cal-Bw}
+.MJXc-TeX-frak-R {font-family: MJXc-TeX-frak-R,MJXc-TeX-frak-Rw}
+.MJXc-TeX-frak-B {font-family: MJXc-TeX-frak-B,MJXc-TeX-frak-Bx,MJXc-TeX-frak-Bw}
+.MJXc-TeX-math-BI {font-family: MJXc-TeX-math-BI,MJXc-TeX-math-BIx,MJXc-TeX-math-BIw}
+.MJXc-TeX-sans-R {font-family: MJXc-TeX-sans-R,MJXc-TeX-sans-Rw}
+.MJXc-TeX-sans-B {font-family: MJXc-TeX-sans-B,MJXc-TeX-sans-Bx,MJXc-TeX-sans-Bw}
+.MJXc-TeX-sans-I {font-family: MJXc-TeX-sans-I,MJXc-TeX-sans-Ix,MJXc-TeX-sans-Iw}
+.MJXc-TeX-script-R {font-family: MJXc-TeX-script-R,MJXc-TeX-script-Rw}
+.MJXc-TeX-type-R {font-family: MJXc-TeX-type-R,MJXc-TeX-type-Rw}
+.MJXc-TeX-cal-R {font-family: MJXc-TeX-cal-R,MJXc-TeX-cal-Rw}
+.MJXc-TeX-main-B {font-family: MJXc-TeX-main-B,MJXc-TeX-main-Bx,MJXc-TeX-main-Bw}
+.MJXc-TeX-main-I {font-family: MJXc-TeX-main-I,MJXc-TeX-main-Ix,MJXc-TeX-main-Iw}
+.MJXc-TeX-main-R {font-family: MJXc-TeX-main-R,MJXc-TeX-main-Rw}
+.MJXc-TeX-math-I {font-family: MJXc-TeX-math-I,MJXc-TeX-math-Ix,MJXc-TeX-math-Iw}
+.MJXc-TeX-size1-R {font-family: MJXc-TeX-size1-R,MJXc-TeX-size1-Rw}
+.MJXc-TeX-size2-R {font-family: MJXc-TeX-size2-R,MJXc-TeX-size2-Rw}
+.MJXc-TeX-size3-R {font-family: MJXc-TeX-size3-R,MJXc-TeX-size3-Rw}
+.MJXc-TeX-size4-R {font-family: MJXc-TeX-size4-R,MJXc-TeX-size4-Rw}
+@font-face {font-family: MJXc-TeX-ams-R; src: local('MathJax_AMS'), local('MathJax_AMS-Regular')}
+@font-face {font-family: MJXc-TeX-ams-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_AMS-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_AMS-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_AMS-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-cal-B; src: local('MathJax_Caligraphic Bold'), local('MathJax_Caligraphic-Bold')}
+@font-face {font-family: MJXc-TeX-cal-Bx; src: local('MathJax_Caligraphic'); font-weight: bold}
+@font-face {font-family: MJXc-TeX-cal-Bw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Caligraphic-Bold.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Caligraphic-Bold.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Bold.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-frak-R; src: local('MathJax_Fraktur'), local('MathJax_Fraktur-Regular')}
+@font-face {font-family: MJXc-TeX-frak-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Fraktur-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Fraktur-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Fraktur-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-frak-B; src: local('MathJax_Fraktur Bold'), local('MathJax_Fraktur-Bold')}
+@font-face {font-family: MJXc-TeX-frak-Bx; src: local('MathJax_Fraktur'); font-weight: bold}
+@font-face {font-family: MJXc-TeX-frak-Bw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Fraktur-Bold.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Fraktur-Bold.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Fraktur-Bold.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-math-BI; src: local('MathJax_Math BoldItalic'), local('MathJax_Math-BoldItalic')}
+@font-face {font-family: MJXc-TeX-math-BIx; src: local('MathJax_Math'); font-weight: bold; font-style: italic}
+@font-face {font-family: MJXc-TeX-math-BIw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Math-BoldItalic.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Math-BoldItalic.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Math-BoldItalic.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-sans-R; src: local('MathJax_SansSerif'), local('MathJax_SansSerif-Regular')}
+@font-face {font-family: MJXc-TeX-sans-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_SansSerif-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_SansSerif-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_SansSerif-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-sans-B; src: local('MathJax_SansSerif Bold'), local('MathJax_SansSerif-Bold')}
+@font-face {font-family: MJXc-TeX-sans-Bx; src: local('MathJax_SansSerif'); font-weight: bold}
+@font-face {font-family: MJXc-TeX-sans-Bw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_SansSerif-Bold.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_SansSerif-Bold.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_SansSerif-Bold.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-sans-I; src: local('MathJax_SansSerif Italic'), local('MathJax_SansSerif-Italic')}
+@font-face {font-family: MJXc-TeX-sans-Ix; src: local('MathJax_SansSerif'); font-style: italic}
+@font-face {font-family: MJXc-TeX-sans-Iw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_SansSerif-Italic.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_SansSerif-Italic.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_SansSerif-Italic.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-script-R; src: local('MathJax_Script'), local('MathJax_Script-Regular')}
+@font-face {font-family: MJXc-TeX-script-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Script-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Script-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Script-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-type-R; src: local('MathJax_Typewriter'), local('MathJax_Typewriter-Regular')}
+@font-face {font-family: MJXc-TeX-type-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Typewriter-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Typewriter-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Typewriter-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-cal-R; src: local('MathJax_Caligraphic'), local('MathJax_Caligraphic-Regular')}
+@font-face {font-family: MJXc-TeX-cal-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Caligraphic-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Caligraphic-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-main-B; src: local('MathJax_Main Bold'), local('MathJax_Main-Bold')}
+@font-face {font-family: MJXc-TeX-main-Bx; src: local('MathJax_Main'); font-weight: bold}
+@font-face {font-family: MJXc-TeX-main-Bw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Main-Bold.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Main-Bold.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Main-Bold.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-main-I; src: local('MathJax_Main Italic'), local('MathJax_Main-Italic')}
+@font-face {font-family: MJXc-TeX-main-Ix; src: local('MathJax_Main'); font-style: italic}
+@font-face {font-family: MJXc-TeX-main-Iw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Main-Italic.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Main-Italic.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Main-Italic.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-main-R; src: local('MathJax_Main'), local('MathJax_Main-Regular')}
+@font-face {font-family: MJXc-TeX-main-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Main-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Main-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Main-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-math-I; src: local('MathJax_Math Italic'), local('MathJax_Math-Italic')}
+@font-face {font-family: MJXc-TeX-math-Ix; src: local('MathJax_Math'); font-style: italic}
+@font-face {font-family: MJXc-TeX-math-Iw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Math-Italic.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Math-Italic.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Math-Italic.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-size1-R; src: local('MathJax_Size1'), local('MathJax_Size1-Regular')}
+@font-face {font-family: MJXc-TeX-size1-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Size1-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Size1-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Size1-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-size2-R; src: local('MathJax_Size2'), local('MathJax_Size2-Regular')}
+@font-face {font-family: MJXc-TeX-size2-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Size2-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Size2-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Size2-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-size3-R; src: local('MathJax_Size3'), local('MathJax_Size3-Regular')}
+@font-face {font-family: MJXc-TeX-size3-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Size3-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Size3-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Size3-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-size4-R; src: local('MathJax_Size4'), local('MathJax_Size4-Regular')}
+@font-face {font-family: MJXc-TeX-size4-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Size4-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Size4-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Size4-Regular.otf') format('opentype')}
+</style></head>
+<body><div id="MathJax_Message" style="display: none;"></div>
+<header>
+<script>
+document.write("最終更新時刻： " + document.lastModified);
+</script>最終更新時刻： 10/08/2025 10:31:32
+<a href="https://www.mlab.im.dendai.ac.jp/~ohno/dsa/index.html">もどる</a>
+</header>
+<article>
+<ul>
+<li><a href="http://www.amazon.co.jp/o/ASIN/479736243X/">定本Javaプログラマのためのアルゴリズムとデータ構造</a> pp.59-65, 69-106.</li>
+<li><a href="http://www.amazon.co.jp/o/ASIN/4797371269/">改訂第3版 Java言語プログラミングレッスン (下)</a> pp.262-303.</li>
+</ul>
+<h1>データ列，スタック，キュー，セット，マップ</h1>
+<img src="./2FI データ構造とアルゴリズム_5_files/method.png" alt="インタフェースの主なメソッド">
+<img src="./2FI データ構造とアルゴリズム_5_files/collection.png" alt="コレクションフレームワークのクラス階層">
+<h2>データ列</h2>
+<h3>配列</h3>
+<p>
+配列（array）は，同じ型の要素を集めたものです．
+配列の要素は，添え字（index）によって識別します．
+</p>
+<pre><code>public class ArrayTest {
+  public static void main(String[] args) {
+    //配列の確保
+    String[] array = new String[3];
+    
+    //要素の代入
+    array[O] = "alice";
+    array[1] = "bob";
+    array[2] = "carol";
+    
+    //要素の参照
+    for (int i = 0; i &lt; array.length; i++) {
+      System.out.println(array[i]);
+    }
+  }
+}
+</code></pre>
+<img src="./2FI データ構造とアルゴリズム_5_files/array.png" alt="配列の様子">
+<p>
+配列における要素の参照，挿入，削除に必要な計算量を考えてみましょう．
+配列では添え字を使うことで任意の要素を即座に参照することができます．
+そのため，要素の参照に必要な計算量は<span class="MathJax_Preview" style="color: inherit; display: none;"></span><span id="MathJax-Element-1-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;O&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/math&gt;" role="presentation" style="font-size: 122%; position: relative;"><span id="MJXc-Node-1" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-2" class="mjx-mrow"><span id="MJXc-Node-3" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.464em; padding-bottom: 0.31em;">O</span></span><span id="MJXc-Node-4" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.464em; padding-bottom: 0.566em;">(</span></span><span id="MJXc-Node-5" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.361em; padding-bottom: 0.361em;">1</span></span><span id="MJXc-Node-6" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.464em; padding-bottom: 0.566em;">)</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-1">O(1)</script>です．
+対して，任意の位置に要素を挿入するには，その位置以降にある要素を全て後にずらす必要があります．
+そのため，それに必要な計算量は<span class="MathJax_Preview" style="color: inherit; display: none;"></span><span id="MathJax-Element-2-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;O&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/math&gt;" role="presentation" style="font-size: 122%; position: relative;"><span id="MJXc-Node-7" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-8" class="mjx-mrow"><span id="MJXc-Node-9" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.464em; padding-bottom: 0.31em;">O</span></span><span id="MJXc-Node-10" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.464em; padding-bottom: 0.566em;">(</span></span><span id="MJXc-Node-11" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.207em; padding-bottom: 0.31em;">n</span></span><span id="MJXc-Node-12" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.464em; padding-bottom: 0.566em;">)</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-2">O(n)</script>となります．
+任意の位置にある要素の削除についても同様に，その位置以降にある要素を全て前にずらす必要があるため，その計算量は<span class="MathJax_Preview" style="color: inherit; display: none;"></span><span id="MathJax-Element-3-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;O&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/math&gt;" role="presentation" style="font-size: 122%; position: relative;"><span id="MJXc-Node-13" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-14" class="mjx-mrow"><span id="MJXc-Node-15" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.464em; padding-bottom: 0.31em;">O</span></span><span id="MJXc-Node-16" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.464em; padding-bottom: 0.566em;">(</span></span><span id="MJXc-Node-17" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.207em; padding-bottom: 0.31em;">n</span></span><span id="MJXc-Node-18" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.464em; padding-bottom: 0.566em;">)</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-3">O(n)</script>となります．
+</p>
+<h3>ArrayList</h3>
+<p>
+Javaでは<a href="https://docs.oracle.com/javase/jp/21/docs/api/java.base/java/util/ArrayList.html">ArrayList</a>を使うことで要素を追加できる配列のようなものを作ることができます．
+</p>
+<pre><code>import java.util.*;
+
+public class ArrayListTest1 {
+  public static void main(String[] args) {
+    //ArrayListのインスタンスの確保
+    ArrayList&lt;String&gt; list = new ArrayList&lt;String&gt;();
+
+    //要素の追加（addメソッド）
+    list.add("alice");
+    list.add("bob");
+    list.add("carol");
+    
+    //要素の参照（getメソッド）
+    for (int i = O; i &lt; list.size(); i++) {
+      System.out.println(list.get(i));
+    }
+  }
+}
+</code></pre>
+<img src="./2FI データ構造とアルゴリズム_5_files/arraylist.png" alt="ArrayListのイメージ図">
+<img src="./2FI データ構造とアルゴリズム_5_files/comparison.png" alt="配列とArrayListの比較">
+<p>
+ArrayListは追加，代入，参照以外にも，removeメソッドを使って要素を削除したり，containsメソッドを使って特定の要素を含んでいるか調べたりできます．
+ArrayListは要素の追加を高速に行うことができますが，末尾以外に要素を挿入したり，要素を削除するには時間がかかります．
+そのため，要素の挿入や削除を頻繁に行う場合は，ArrayListではなくLinkedListを使う方が良いです．
+</p>
+<p>
+<!-- JavaのArrayListは次回勉強する連結リストの1つの実装です．
+詳しくは次回に解説しますが，要素の参照に必要な計算量は$O(n)$で，要素の挿入と削除に必要な計算量は$O(1)$です．-->
+</p>
+<h3>LinkedList</h3>
+<p>
+<a href="https://docs.oracle.com/javase/jp/21/docs/api/java.base/java/util/LinkedList.html">LinkedList</a>は連結リストを内部構造に持つリストです．
+連結リストとは，リストの要素1つ1つがオブジェクトとなっていて，オブジェクト間のつながりは参照関係（has-a関係）によって実現されています．
+LinkedListの場合には双方向リストになっていて，着目している要素の1つ後ろの要素や1つ前の要素が容易に取得できます．
+</p>
+<p>
+LinkedListではArrayListが苦手な要素の挿入や削除を高速に行うことができます．
+一方で，特定の位置にある要素を参照する処理は低速です．
+
+</p>
+<pre><code>import java.util.*;
+
+public class LinkedListTest1 {
+  public static void main(String[] args) {
+    //LinkedListのインスタンスを確保する
+    LinkedList&lt;String&gt; list = new LinkedList&lt;String&gt;();
+
+    //要素の追加（addメソッド）
+    list.add("bob");
+    list.add("carol");
+    list.add("dave");
+    list.add("eve");
+
+    //現在の状態
+    System.out.println(list);
+
+    //先頭にAliceを挿入
+    list.addFirst("alice");
+
+    //Aliceを挿入した後の状態
+    System.out.println(list);
+  }
+}
+</code></pre>
+<img src="./2FI データ構造とアルゴリズム_5_files/linkedlist.png" alt="LinkedListのイメージ図">
+<p>
+
+</p>
+<h2>スタック</h2>
+<p>
+スタック（Stack）は「後入れ先出し（Last-In First-Out, <strong>LIFO</strong>）」を表すデータ構造です．
+「先入れ後出し（First-In Last-Out, FILO）」と呼ばれることもあります．
+</p>
+<img src="./2FI データ構造とアルゴリズム_5_files/stack1.png" alt="スタック">
+<p>
+現実世界でスタックとなる例を以下に示します．
+</p>
+<ul>
+<li>細長い袋状のもの
+<ul>
+<li>コップ</li>
+<li>リュック</li>
+</ul></li>
+<li>積ん読（本を重ねて積んでいくと上からしか取れない）</li>
+<li>縦長の駐車場に車2台を入れる（先に停めた車は出られない）</li>
+<li>狭い冷蔵庫（前のものを取らないと昔入れた後ろのものが取れない）</li>
+<li>後から後からより重要度の高い仕事がやってくる状況（いまやっている仕事を棚上げ、の繰り返し）</li>
+<li>UNIX系OSのpushd/popdコマンド</li>
+</ul>
+<p>
+スタックを擬似コードで説明します．
+スタックにデータを追加する命令をpush，データを取り出す命令をpopとします．
+</p>
+<pre><code>s.push("alice");
+s.push("bob");
+s.push("carol");
+s.push("dave");
+s.push("eve");
+</code></pre>
+<p>
+上記の擬似コードを実行後は，スタックsにはalice, bob, carol, dave, eveの順にデータが格納されています．
+この時，最初に追加されたaliceをbottom，最後に追加されたeveをtopと呼びます．
+この状態で，以下の擬似コードを実行すると，eveが取り出され，スタックsにはalice, bob, carol, daveが残ります．
+</p>
+<pre><code>s.pop();
+</code></pre>
+<p>
+スタックにデータを追加する場合は，常にtopに追加されるので，pushされた順番にデータが並びます．
+データを取り出す場合は，<strong>最後にpushされたデータ，つまりtopのデータが取り出されます</strong>．
+</p>
+<p>
+スタックを配列で実現することを考えます．
+配列xを使うとすると，x[0]がスタックのbottom，x[n-1]がtopになります．
+ここで，nはスタックに入っている要素の個数です．
+変数nは，スタックポインタ（stack pointer）と呼ばれます．
+スタックポインタの値は，要素を積むとき（push）には1つ増加し，要素を降ろすとき（pop）には1つ減少します．
+スタックにデータを積むには，x[n++] = data;とします．
+スタックからデータを降ろすには，data = x[--n];とします．
+このように，スタックでは要素の挿入と削除が計算量<span class="MathJax_Preview" style="color: inherit; display: none;"></span><span id="MathJax-Element-4-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;O&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/math&gt;" role="presentation" style="font-size: 122%; position: relative;"><span id="MJXc-Node-19" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-20" class="mjx-mrow"><span id="MJXc-Node-21" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.464em; padding-bottom: 0.31em;">O</span></span><span id="MJXc-Node-22" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.464em; padding-bottom: 0.566em;">(</span></span><span id="MJXc-Node-23" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.361em; padding-bottom: 0.361em;">1</span></span><span id="MJXc-Node-24" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.464em; padding-bottom: 0.566em;">)</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-4">O(1)</script>で済みます．
+</p>
+<p>
+スタックとして使う配列の大きさは有限ですから，要素を積む余裕があるかどうかをチェックする必要があります．
+また，スタックからデータを降ろす際には，スタックが空でないことを確認しなければなりません．
+これらのチェックは，スタックポインタの値を調べるだけなので<span class="MathJax_Preview" style="color: inherit; display: none;"></span><span id="MathJax-Element-5-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;O&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/math&gt;" role="presentation" style="font-size: 122%; position: relative;"><span id="MJXc-Node-25" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-26" class="mjx-mrow"><span id="MJXc-Node-27" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.464em; padding-bottom: 0.31em;">O</span></span><span id="MJXc-Node-28" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.464em; padding-bottom: 0.566em;">(</span></span><span id="MJXc-Node-29" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.361em; padding-bottom: 0.361em;">1</span></span><span id="MJXc-Node-30" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.464em; padding-bottom: 0.566em;">)</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-5">O(1)</script>で済みます．
+結局，チェックの有無にかかわらず，挿入と削除の計算量は<span class="MathJax_Preview" style="color: inherit; display: none;"></span><span id="MathJax-Element-6-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;O&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/math&gt;" role="presentation" style="font-size: 122%; position: relative;"><span id="MJXc-Node-31" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-32" class="mjx-mrow"><span id="MJXc-Node-33" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.464em; padding-bottom: 0.31em;">O</span></span><span id="MJXc-Node-34" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.464em; padding-bottom: 0.566em;">(</span></span><span id="MJXc-Node-35" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.361em; padding-bottom: 0.361em;">1</span></span><span id="MJXc-Node-36" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.464em; padding-bottom: 0.566em;">)</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-6">O(1)</script>になります．
+</p>
+<img src="./2FI データ構造とアルゴリズム_5_files/stack2.png" alt="配列によるスタックの実現">
+<p>
+Javaではスタックを表すクラス<a href="https://docs.oracle.com/javase/jp/21/docs/api/java.base/java/util/Stack.html">Stack</a>があります．
+追加はpush(E item)，取り出しはpop()というメソッドを用います．
+なお，StackクラスはArrayListに似たVectorクラスを継承していますので，配列と同じような性質を持ちます．
+</p>
+<p>
+新しいJavaではLinkedListがスタックを実現するクラスになります．
+Java1.6以降では，両端から要素の追加/取り出しが可能な<a href="https://docs.oracle.com/javase/jp/21/docs/api/java.base/java/util/Deque.html">Deque</a>（double ended queue，デック）インターフェイスがありますので，LinkedListクラスをDequeインタフェースで使うのが良いでしょう．
+Dequeインターフェースでスタックを実現するときは，push, popメソッドを用いるのが良いでしょう．
+</p>
+<p>
+スタックの使用例として逆ポーランド記法（reverse polish notation）を説明します．
+逆ポーランド記法は演算子を後ろに置き，値の保持にスタックを使います．
+例えば，<span class="MathJax_Preview" style="color: inherit; display: none;"></span><span id="MathJax-Element-7-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mo&gt;&amp;#x2217;&lt;/mo&gt;&lt;mn&gt;3&lt;/mn&gt;&lt;/math&gt;" role="presentation" style="font-size: 122%; position: relative;"><span id="MJXc-Node-37" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-38" class="mjx-mrow"><span id="MJXc-Node-39" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.464em; padding-bottom: 0.566em;">(</span></span><span id="MJXc-Node-40" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.361em; padding-bottom: 0.361em;">1</span></span><span id="MJXc-Node-41" class="mjx-mo MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.31em; padding-bottom: 0.412em;">+</span></span><span id="MJXc-Node-42" class="mjx-mn MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.361em; padding-bottom: 0.361em;">2</span></span><span id="MJXc-Node-43" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.464em; padding-bottom: 0.566em;">)</span></span><span id="MJXc-Node-44" class="mjx-mo MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.156em; padding-bottom: 0.31em;">∗</span></span><span id="MJXc-Node-45" class="mjx-mn MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.361em; padding-bottom: 0.361em;">3</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><mn>2</mn><mo stretchy="false">)</mo><mo>∗</mo><mn>3</mn></math></span></span><script type="math/tex" id="MathJax-Element-7">(1+2) * 3</script>は<code>1 2 + 3 *</code>となります．
+逆ポーランド記法の計算は以下のように行われます．
+</p>
+<ol>
+<li>数値であれば，そのままスタックにpushする．</li>
+<li>演算子であれば，スタックから2つの値をpopして演算を行い，演算結果をスタックにpushする．</li>
+</ol>
+<p>
+最終的な演算結果はスタックのtopに保持される．
+</p>
+
+<hr>
+<h3>練習05-1</h3>
+<p>空のスタックsに対して，以下の疑似コードを実行した場合，各命令を実行した後のスタックsはどのような状態になるか示せ．
+</p><pre><code>s.push(1);
+s.push(5);
+s.pop();
+s.pop();
+s.push(7);
+s.push(6);
+s.pop();
+</code></pre>
+<p></p>
+
+<hr>
+
+<h2>キュー</h2>
+<p>
+キュー（Queue）は「先入れ先出し（First-In First-Out, <strong>FIFO</strong>）」を表すデータ構造です．
+キューからデータを取り出すときは，先に格納したものから順に取り出されます．
+</p>
+<img src="./2FI データ構造とアルゴリズム_5_files/queue1.png" alt="キュー">
+<p>
+現実世界でキューとなる例を以下に示します．
+</p>
+<ul>
+<li>筒状のもの
+<ul>
+<li>パイプ</li>
+<li>ホース</li>
+<li>ところてんを作る器具</li>
+<li>CPUのパイプライン</li>
+<li>一方通行で追い越しできない道</li>
+</ul></li>
+<li>銀行や病院の待ち行列（先に並んだ人からサービスを受ける）</li>
+<li>コンビニ店員の理想とする商品管理（先に入荷したものから売る; 後ろから補充）</li>
+</ul>
+<p>
+キューを擬似コードで説明します．
+キューにデータを追加する命令をenqueue，データを取り出す命令をdequeueとします．
+</p>
+<pre><code>q.enqueue("alice");
+q.enqueue("bob");
+q.enqueue("carol");
+q.enqueue("dave");
+q.enqueue("eve");
+</code></pre>
+<p>
+上記の擬似コードを実行後は，キューqにはalice, bob, carol, dave, eveの順にデータが格納されています．
+この状態で，以下の擬似コードを実行すると，aliceが取り出され，キューqにはbob, carol, dave, eveが残ります．
+</p>
+<pre><code>q.dequeue();
+</code></pre>
+<p>
+キューにデータを追加する場合は，常に末尾に追加されるので，enqueueされた順番にデータが並びます．
+また，データを取り出す場合も，<strong>enqueueされた順番に取り出されます</strong>．
+</p>
+<p>
+キューを配列で実現することを考えます．
+スタックの場合には，挿入と削除が同じ端で行われるので，要素の増減に合わせてスタックポインタを動かすだけで済みます．
+しかしキューの場合は，挿入と削除が反対の端で行われるので，キューの先頭を指すfrontと末尾を指すrearを用意します．
+キューに何も要素が入っていない状態では，front = rearとなります．
+キューに要素を入れるごとにrearが1つ増え，要素を取り出すごとにfrontが1つ増えます．
+キューの挿入，削除はともに計算量<span class="MathJax_Preview" style="color: inherit; display: none;"></span><span id="MathJax-Element-8-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;O&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/math&gt;" role="presentation" style="font-size: 122%; position: relative;"><span id="MJXc-Node-46" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-47" class="mjx-mrow"><span id="MJXc-Node-48" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.464em; padding-bottom: 0.31em;">O</span></span><span id="MJXc-Node-49" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.464em; padding-bottom: 0.566em;">(</span></span><span id="MJXc-Node-50" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.361em; padding-bottom: 0.361em;">1</span></span><span id="MJXc-Node-51" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.464em; padding-bottom: 0.566em;">)</span></span></span></span><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-8">O(1)</script>で実行することができます．
+ただし，frontもrearも増加する一方なので，無限大の配列が必要になります．
+</p>
+<p>
+そこで，配列をリング状にして，「最後の要素の次には最初の要素がある」と考えることにします．
+つまり，n個の要素を持つ配列xにおいて，最後の要素x[n-1]の次に最初の要素x[0]が続くと考えます．
+配列をリング状に扱うには，frontやrearを1つ増加させるときに，剰余をとります．
+このようにリング状になった配列をリングバッファ（ring buffer）といいます．
+</p>
+<p>
+ところで，キューが満杯になったとき，最後の要素の次の要素が，キューの最初の要素になります．
+つまり，キューが満杯のときには，rear = frontとなります．
+しかし，rear = frontは待ち行列が空であることを示すので区別がつきません．
+これを解決するには，以下の3通りの方法があります．
+</p>
+<ol>
+<li>キューが空であることを示すフラグを別途用意する</li>
+<li>必ず空の要素を1つ残しておく</li>
+<li>キューに入っている要素の個数を記録しておく</li>
+</ol>
+<img src="./2FI データ構造とアルゴリズム_5_files/queue2.png" alt="配列によるキューの実現">
+<p>
+JavaのCollections Frameworkでは，キューを表す<a href="https://docs.oracle.com/javase/jp/21/docs/api/java.base/java/util/Queue.html">Queueインタフェース</a>がLinkedListに実装されているので，LinkedListをキューとして使うことができます．
+擬似コードで示したenqueueとdequeueに対応するメソッドは，それぞれofferとpollになります．
+<!-- Java1.6以降では，-->
+<!--
+両端から要素の追加/取り出しが可能な<a href="https://docs.oracle.com/javase/jp/21/docs/api/java.base/java/util/Deque.html">Deque</a>インターフェイスの片側だけを利用するとキューになります．
+具体的には，例えばofferFirst(e)/pollFirst()メソッドの組み合わせ，あるいはofferLast(e)/pollLast()メソッドの組み合わせで用います．-->
+</p>
+<h2>セット</h2>
+<p>
+セットは「要素の集合」を管理するインターフェースです．
+集合の特徴は以下の通りです．
+</p>
+<ul>
+<li>要素には順序がない．</li>
+<li>要素には重複がない．</li>
+</ul>
+<p>
+JavaのCollections Frameworkでは，集合を表す<a href="https://docs.oracle.com/javase/jp/21/docs/api/java.base/java/util/Set.html">Setインタフェース</a>が用意されています．
+<a href="https://docs.oracle.com/javase/jp/21/docs/api/java.base/java/util/HashSet.html">HashSetクラス</a>は，Setインタフェースを実装している代表的なクラスです．
+ListやMapインターフェースは重複を許しますが，Setインターフェースでは重複を許しません．
+</p>
+<p>
+セットはリストと比較して，containsメソッドやremoveメソッドが高速に実行できます．
+リストの場合には先頭から線形探索をしていく必要があるため低速な処理になりますが，HashSetではハッシュ法（<!-- <a href="13.html"> -->第12回<!--</a>-->で学びます）によって直接アクセスすることができるため，高速に動作します．
+要素の順序づけが必要なく，あるオブジェクトが集合に含まれているかを確認することが多い場合には，リストではなくセットを用いるとよいでしょう．
+</p>
+<h2>マップ</h2>
+<p>
+マップは「キーと値の対応関係」を管理するインタフェースです．
+最近の高級言語では，連想配列や辞書（dictionary），マップなどとして，標準で提供されることが多くなっています．
+データベースの世界では，<strong>key-valueストア（Key-Value Store, KVS）</strong>と呼ばれることもあります．
+</p>
+<p>
+マップでは，キーを指定して，それに対応する値を得ます．
+例えば，キーとして学籍番号，値として氏名を登録すれば，学籍番号から氏名を得ることができます．
+</p>
+<table>
+<tbody><tr>
+<th>キー</th>
+<th>値</th>
+</tr>
+<tr>
+<td>12FI888</td>
+<td>電大太郎</td>
+</tr>
+<tr>
+<td>12FI889</td>
+<td>電大次郎</td>
+</tr>
+<tr>
+<td>12FI890</td>
+<td>電大三郎</td>
+</tr>
+<tr>
+<td>12FI892</td>
+<td>電大五郎</td>
+</tr>
+<tr>
+<td>12FI893</td>
+<td>電大花子</td>
+</tr>
+<tr>
+<td>12FI895</td>
+<td>電大次子</td>
+</tr>
+</tbody></table>
+<p>
+キーは重複を許しませんが，異なるキーであれば同じ値を格納することができます．
+そのため，以下のようなマップを作ることもできます．
+</p>
+<table>
+<tbody><tr>
+<th>キー</th>
+<th>値</th>
+</tr>
+<tr>
+<td>ロイヤルペンギン</td>
+<td>ペンギン目ペンギン科マカロニペンギン属</td>
+</tr>
+<tr>
+<td>イワトビペンギン</td>
+<td>ペンギン目ペンギン科マカロニペンギン属</td>
+</tr>
+<tr>
+<td>ジェンツーペンギン</td>
+<td>ペンギン目ペンギン科アデリーペンギン属</td>
+</tr>
+<tr>
+<td>フンボルトペンギン</td>
+<td>ペンギン目ペンギン科フンボルトペンギン属</td>
+</tr>
+<tr>
+<td>コウテイペンギン</td>
+<td>ペンギン目ペンギン科コウテイペンギン属</td>
+</tr>
+</tbody></table>
+<p>
+Javaでは<a href="https://docs.oracle.com/javase/jp/21/docs/api/java.base/java/util/Map.html">Mapインタフェース</a>と，その実装である<a href="https://docs.oracle.com/javase/jp/21/docs/api/java.base/java/util/HashMap.html">HashMapクラス</a>があります．
+HashMapでは，キーから値を高速に取り出すアルゴリズムとして，ハッシュ法を用いています．
+Javaではキーも値もオブジェクトであればなんでもかまいません．
+</p>
+<h2>演習05</h2>
+<p>
+  Office365のFormsにて出題（授業後半にWebClassにてURLを掲載する）．
+</p>
+</article>
+<footer>
+<ul>
+<li><a href="http://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%AA%E3%82%B9%E3%81%A8%E3%83%9C%E3%83%96">アリスとボブ - Wikipedia</a></li>
+</ul>
+<a href="https://www.mlab.im.dendai.ac.jp/~ohno/dsa/index.html">もどる</a>
+</footer>
+
+
+</body></html>
